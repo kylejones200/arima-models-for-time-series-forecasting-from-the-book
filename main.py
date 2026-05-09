@@ -6,6 +6,12 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+import logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 # Add src to path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -164,8 +170,8 @@ def rolling_origin_uni_vs_multi(
     mean_uni_mae = float(np.mean(uni_maes)) if uni_maes else float("nan")
     mean_mul_mae = float(np.mean(mul_maes)) if mul_maes else float("nan")
     
-    print(f"Univariate (ETS) MAE: {mean_uni_mae:.3f}")
-    print(f"Multivariate (Regression) MAE: {mean_mul_mae:.3f}")
+    logger.info(f"Univariate (ETS) MAE: {mean_uni_mae:.3f}")
+    logger.info(f"Multivariate (Regression) MAE: {mean_mul_mae:.3f}")
     
     return mean_uni_mae, mean_mul_mae, last_true, last_uni_pred, last_mul_pred
 
@@ -182,7 +188,7 @@ def main() -> None:
     
     # Load series
     series = load_series(config)
-    print(f"Loaded {len(series)} data points")
+    logger.info(f"Loaded {len(series)} data points")
     
     # Rolling origin evaluation
     _, _, last_true, last_uni_pred, last_mul_pred = rolling_origin_uni_vs_multi(series, config)
@@ -204,9 +210,9 @@ def main() -> None:
         fig.tight_layout()
         save_plot(fig, config.uni_multi_plot, dpi=300)
         plt.close(fig)
-        print(f" Plot saved -> {config.uni_multi_plot}")
+        logger.info(f" Plot saved -> {config.uni_multi_plot}")
     
-    print("\n ARIMA baseline analysis complete")
+    logger.info("\n ARIMA baseline analysis complete")
 
 
 if __name__ == "__main__":
