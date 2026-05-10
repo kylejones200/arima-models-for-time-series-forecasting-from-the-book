@@ -26,17 +26,16 @@ The moving average model can be useful for capturing short-term dependencies and
 
 In Python, the `statsmodels` library provides the tools needed for ARIMA and time series analysis:
 
-    from statsmodels.tsa.arima.model import ARIMA
+from statsmodels.tsa.arima.model import ARIMA
 
     # Load the time series data
-    data = pd.read_csv('sales_data.csv', index_col='date')
+data = pd.read_csv('sales_data.csv', index_col='date')
 
     # Fit the ARIMA(1,1,1) model
-    model = ARIMA(data, order=(1,1,1))
-    model_fit = model.fit()
+model = ARIMA(data, order=(1,1,1)) model_fit = model.fit()
 
     # Make forecasts
-    forecast = model_fit.forecast(steps=10)[0]
+forecast = model_fit.forecast(steps=10)[0]
 
 In this example, we first load the time series data into a `pandas` DataFrame. We then create an ARIMA model instance, specifying the order of the AR, I, and MA components as (1,1,1). The `fit()` method is used to estimate the model parameters based on the historical data.
 
