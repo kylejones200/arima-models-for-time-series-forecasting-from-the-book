@@ -176,7 +176,7 @@ def rolling_origin_uni_vs_multi(
     return mean_uni_mae, mean_mul_mae, last_true, last_uni_pred, last_mul_pred
 
 
-def main() -> None:
+def main(plot: bool = False) -> None:
     """Main execution function."""
     script_dir = Path(__file__).parent
     
@@ -195,21 +195,22 @@ def main() -> None:
     
     # Create visualization
     if last_true is not None and last_uni_pred is not None and last_mul_pred is not None:
-        fig, ax = plt.subplots(figsize=(10, 5))
-        ax.plot(series.index[-100:], series.values[-100:], "k-", lw=1.5, label="History", alpha=0.8)
-        ax.plot(last_true.index, last_true.values, "b-", lw=1.8, label="Actual", alpha=0.8)
-        ax.plot(last_uni_pred.index, last_uni_pred.values, "r--", lw=2.0, label="Univariate (ETS)", alpha=0.8)
-        ax.plot(last_mul_pred.index, last_mul_pred.values, "g--", lw=2.0, label="Multivariate (Regression)", alpha=0.8)
+    if plot:
+            fig, ax = plt.subplots(figsize=(10, 5))
+            ax.plot(series.index[-100:], series.values[-100:], "k-", lw=1.5, label="History", alpha=0.8)
+            ax.plot(last_true.index, last_true.values, "b-", lw=1.8, label="Actual", alpha=0.8)
+            ax.plot(last_uni_pred.index, last_uni_pred.values, "r--", lw=2.0, label="Univariate (ETS)", alpha=0.8)
+            ax.plot(last_mul_pred.index, last_mul_pred.values, "g--", lw=2.0, label="Multivariate (Regression)", alpha=0.8)
         
-        ax.set_title("Univariate vs Multivariate Forecast Comparison")
-        ax.set_xlabel("Date")
-        ax.set_ylabel("Value")
-        ax.legend(loc="best")
-        ax.grid(True, alpha=0.3)
+            ax.set_title("Univariate vs Multivariate Forecast Comparison")
+            ax.set_xlabel("Date")
+            ax.set_ylabel("Value")
+            ax.legend(loc="best")
+            ax.grid(True, alpha=0.3)
         
-        fig.tight_layout()
-        save_plot(fig, config.uni_multi_plot, dpi=300)
-        plt.close(fig)
+            fig.tight_layout()
+            save_plot(fig, config.uni_multi_plot, dpi=300)
+            plt.close(fig)
         logger.info(f" Plot saved -> {config.uni_multi_plot}")
     
     logger.info("\n ARIMA baseline analysis complete")
