@@ -144,7 +144,7 @@ def rolling_origin_uni_vs_multi(
         ).fit(optimized=True)
         uni_forecast = uni_model.forecast(len(future_series))
         uni_mae = mean_absolute_error(future_series.values, uni_forecast.values)
-        uni_maes.append(uni_mae)
+        pd.concat([uni_maes, uni_mae])
         
         # Multivariate regression
         cal_features = make_calendar_features(train_series.index)
@@ -160,7 +160,7 @@ def rolling_origin_uni_vs_multi(
         X_future = scaler.transform(future_cal_features.values)
         mul_forecast = pd.Series(reg.predict(X_future), index=future_series.index)
         mul_mae = mean_absolute_error(future_series.values, mul_forecast.values)
-        mul_maes.append(mul_mae)
+        pd.concat([mul_maes, mul_mae])
         
         last_true = future_series
         last_uni_pred = uni_forecast
