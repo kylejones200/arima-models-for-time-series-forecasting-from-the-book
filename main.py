@@ -194,7 +194,7 @@ def main(plot: bool = False) -> None:
     
     # Create visualization
     if last_true is not None and last_uni_pred is not None and last_mul_pred is not None:
-    if plot:
+        if plot:
             fig, ax = plt.subplots(figsize=(10, 5))
             ax.plot(series.index[-100:], series.values[-100:], "k-", lw=1.5, label="History", alpha=0.8)
             ax.plot(last_true.index, last_true.values, "b-", lw=1.8, label="Actual", alpha=0.8)
