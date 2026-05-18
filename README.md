@@ -2,6 +2,10 @@
 
 Companion code for a Medium article.
 
+## Business context
+
+Autoregressive integrated moving average (ARIMA) models are a common method of time series forecasting. In this article, we look at examples of implementing ARIMA models in Python.
+
 ## Disclaimer
 
 Educational/demo code only. Not financial, safety, or engineering advice. Use at your own risk. Verify results independently before any production or operational use.
