@@ -78,8 +78,8 @@ def load_series(config: Config) -> pd.Series:
 
     series = load_time_series(
         str(config.data_path),
-        date_column=config.date_col,
-        value_column=config.value_col,
+        date_col=config.date_col,
+        value_col=config.value_col,
     )
     if config.freq:
         series = series.asfreq(config.freq)
@@ -216,9 +216,9 @@ def main(plot: bool = False) -> None:
             ax.legend(loc="best")
             ax.grid(True, alpha=0.3)
             fig.tight_layout()
-            save_plot(fig, config.uni_multi_plot, dpi=300)
+            fig.savefig(config.uni_multi_plot, dpi=300, bbox_inches="tight")
             plt.close(fig)
-        logger.info(f" Plot saved -> {config.uni_multi_plot}")
+            logger.info(f" Plot saved -> {config.uni_multi_plot}")
 
     logger.info("\n ARIMA baseline analysis complete")
 
